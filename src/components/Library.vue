@@ -1,10 +1,10 @@
 <template>
-    <ul>
+    <ul v-if="data !== null">
         <li
             v-for="(element, index) in data"
             :key="`album-${index}`"
         >
-            <Card 
+            <Card
                 :img="element.poster"
                 :title="element.title"
                 :author="element.author"
@@ -13,10 +13,12 @@
             />
         </li>
     </ul>
+    <Loader v-else />
 </template>
 
 <script>
 import Card from '@/components/Card.vue';
+import Loader from '@/components/Loader.vue';
 
 import axios from 'axios';
 
@@ -24,6 +26,7 @@ export default {
     name: 'Library',
     components: {
         Card,
+        Loader,
     },
     data() {
         return {
