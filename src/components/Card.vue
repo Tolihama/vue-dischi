@@ -47,7 +47,6 @@ export default {
     .card-text {
         padding: 1.5rem 0 0;
         height: 100%;
-        flex-grow: 1;
         background: $main-bg;
         text-align: center;
 

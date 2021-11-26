@@ -20,34 +20,21 @@
 import Card from '@/components/Card.vue';
 import Loader from '@/components/Loader.vue';
 
-import axios from 'axios';
-
 export default {
     name: 'Library',
     components: {
         Card,
         Loader,
     },
-    data() {
-        return {
-            data: null,
-        };
-    },
-    created() {
-        this.getData();
-    },
-    methods: {
-        getData() {
-            axios.get('https://flynn.boolean.careers/exercises/api/array/music')
-                .then(result => this.data = result.data.response)
-                .catch(err => console.log(err));
-        }
+    props: {
+        data: Array,
     },
 }
 </script>
 
 <style scoped lang="scss">
 ul {
+    width: 100%;
     padding: 2rem;
     list-style: none;
     display: flex;

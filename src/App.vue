@@ -1,11 +1,8 @@
 <template>
     <div id="app">
-        <header>
-            <Header />
-        </header>
-
+        <Header @optionSelected="genreFilter" />
         <main>
-            <Library />
+            <Library :data="filteredAlbums" />
         </main>
     </div>
 </template>
@@ -14,11 +11,41 @@
 import Header from '@/components/Header.vue';
 import Library from '@/components/Library.vue';
 
+import axios from 'axios';
+
 export default {
     name: "App",
     components: {
         Header,
         Library
+    },
+    data() {
+        return {
+            albums: null,
+            activeAlbumFilter: 'All',
+        };
+    },
+    computed: {
+        filteredAlbums() {
+            if (this.activeAlbumFilter === 'All') {
+                return this.albums;
+            }
+
+            return this.albums.filter(e => e.genre === this.activeAlbumFilter);
+        },
+    },
+    created() {
+        this.getData();
+    },
+    methods: {
+        getData() {
+            axios.get('https://flynn.boolean.careers/exercises/api/array/music')
+                .then(result => this.albums = result.data.response)
+                .catch(err => console.log(err));
+        },
+        genreFilter(text) {
+            this.activeAlbumFilter = text;
+        }
     },
 };
 </script>
@@ -38,9 +65,7 @@ export default {
     }
 
     main {
-        flex-grow: 1;
         display: flex;
-        align-items: center;
     }
 }
 </style>

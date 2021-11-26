@@ -1,25 +1,66 @@
 <template>
-    <div>
-        <img src="../assets/logo.png" alt="Logo">
-    </div>
+    <header>
+        <div class="logo">
+            <img src="../assets/logo.png" alt="Logo" />
+        </div>
+        <div class="select">
+            <label for="Genre">Select Genre:</label>
+            <select
+                name="Genre"
+                v-model="genreSelected"
+                @change="$emit('optionSelected', genreSelected)"
+            >
+                <option value="All">All Genres</option>
+                <option value="Rock">Rock</option>
+                <option value="Pop">Pop</option>
+                <option value="Jazz">Jazz</option>
+                <option value="Metal">Metal</option>
+            </select>
+        </div>
+    </header>
 </template>
 
 <script>
 export default {
-    name: 'Header',
-}
+    name: "Header",
+    data() {
+        return {
+            genreSelected: "All",
+        };
+    },
+};
 </script>
 
 <style scoped lang="scss">
-@import '../styles/vars.scss';
+@import "../styles/vars.scss";
 
-div {
+header {
     background: $main-bg;
+    display: flex;
+    align-items: center;
 
-    img {
-        height: 100px;
+    .logo {
         padding: 1rem 1.5rem;
+        flex-grow: 1;
+
+        img {
+            height: 50px;
+        }
+    }
+
+    .select {
+        margin-right: 50px;
+
+        label {
+            margin-right: 10px;
+            color: $primary-text;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        select {
+            padding: 10px 5px;
+        }
     }
 }
-
 </style>
